@@ -84,6 +84,9 @@ class MessageBus::ConnectionManager
   end
 
   def remove_client(c)
+
+    return if @clients[c.client_id].connect_time != c.connect_time
+
     @clients.delete c.client_id
     @subscriptions[c.site_id].each do |k, set|
       set.delete c.client_id
